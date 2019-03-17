@@ -11,7 +11,6 @@ namespace OrganicosEmCasaTestes
     public class ClientesControllerTests
     {
         public TestContext TestContext { get; set; }
-        private readonly ClientesController Controller;
 
         [ClassInitialize]
         public static void SetUp(TestContext context)
@@ -57,6 +56,7 @@ namespace OrganicosEmCasaTestes
             #region Criar Registro
             var cliente = new Cliente
             {
+                ID = 50,
                 Nome = nomeCliente,
                 Endereco = "Avenida do Contorno 3000",
                 UF = OrganicosEmCasa.Utils.Estados.MG,
