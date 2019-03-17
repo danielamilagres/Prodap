@@ -17,7 +17,7 @@ namespace OrganicosEmCasa.Controllers
         // GET: Clientes
         public ActionResult Index()
         {
-            return View(db.Clientes.ToList());
+            return View("Index", db.Clientes.ToList());
         }
 
         // GET: Clientes/Details/5
