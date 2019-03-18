@@ -7,8 +7,10 @@
 Instruções de instalação:
 	- Para aproveitar o banco já criado, extrair os arquivos do APP_DATA.zip que se encontra no diretorio raiz do projeto
 	- Copiar os arquivos OrganicosEmCasa.mdf e OrganicosEmCasa_log.ldf para o diretorio OrganicosEmCasa\App_Data
-	- Abrir o prompt do nuget e executar o camando UPDATE-DATABASE
-	- Abrir o projeto no visual studio 2017 e executá-lo
+	- Abrir o projeto 
+	- Executar Clean Solution
+	- Executar Rebuild Solution
+	- Rodar o site
 
 
 - O que falta ser implementado
