@@ -78,8 +78,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ClientesControllerTests.cs" />
+    <Compile Include="Controllers\ClientesControllerTests.cs" />
+    <Compile Include="DbSet\TesteClienteDbSet .cs" />
+    <Compile Include="DbSet\TesteOrganicosEmCasaDBContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="DbSet\TesteDbSet.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

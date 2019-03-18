@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OrganicosEmCasa.Controllers;
 using OrganicosEmCasa.Models;
+using OrganicosEmCasaTestes.DbSet;
 
 namespace OrganicosEmCasaTestes
 {
@@ -11,7 +12,14 @@ namespace OrganicosEmCasaTestes
     public class ClientesControllerTests
     {
         public TestContext TestContext { get; set; }
+        private readonly ClientesController controller;
+        private readonly IOrganicosEmCasaDBContext contexto;
 
+        public ClientesControllerTests()
+        {
+            this.contexto = new TesteOrganicosEmCasaDBContext();
+            this.controller = new ClientesController(this.contexto);
+        }
         [ClassInitialize]
         public static void SetUp(TestContext context)
         {
@@ -21,8 +29,7 @@ namespace OrganicosEmCasaTestes
         [TestMethod]
         public void TesteIndexView_Sucesso()
         {
-            var controller = new ClientesController();
-            var resultado = controller.Index() as ViewResult;
+            var resultado = this.controller.Index() as ViewResult;
             Assert.IsNotNull(resultado);
             Assert.AreEqual("Index", resultado.ViewName);
         }
@@ -41,16 +48,18 @@ namespace OrganicosEmCasaTestes
                 Telefone = "(31)98877-9878"
             };
 
-            var controller = new ClientesController();
-            var resultado = controller.Create(cliente) as RedirectToRouteResult;
+           var resultado = this.controller.Create(cliente) as RedirectToRouteResult;
 
             Assert.AreEqual("Index", resultado.RouteValues["action"]);
+
+            #region Remover dados
+            this.contexto.Clientes.Remove(cliente);
+            #endregion
         }
 
         [TestMethod]
         public void TesteDetailsAction_Sucesso()
         {
-            var controller = new ClientesController();
             var nomeCliente = "João Paulo Silva";
 
             #region Criar Registro
@@ -66,23 +75,22 @@ namespace OrganicosEmCasaTestes
                 Telefone = "(31)98877-9878"
             };
 
-            controller.Create(cliente);
+            contexto.Clientes.Add(cliente);
             #endregion
 
-            var resultado = controller.Details(1) as ViewResult;
+            var resultado = this.controller.Details(50) as ViewResult;
             var clienteRetornado = (Cliente)resultado.ViewData.Model;
             Assert.AreEqual(clienteRetornado.Nome, nomeCliente);
 
-            #region Remoção registro
-            controller.DeleteConfirmed(clienteRetornado.ID);
+            #region Remover dados
+            this.contexto.Clientes.Remove(cliente);
             #endregion
         }
 
         [TestMethod]
         public void TesteDetailsAction_NaoEncontrado()
         {
-            var controller = new ClientesController();
-            var resultado = controller.Details(999);
+            var resultado = this.controller.Details(999);
             Assert.IsInstanceOfType(resultado, typeof(HttpNotFoundResult));
         }
     }
