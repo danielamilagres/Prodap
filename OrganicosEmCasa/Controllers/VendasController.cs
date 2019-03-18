@@ -12,15 +12,13 @@ namespace OrganicosEmCasa.Controllers
 {
     public class VendasController : Controller
     {
-        private OrganicosEmCasaDBContext db = new OrganicosEmCasaDBContext();
+        private readonly OrganicosEmCasaDBContext db = new OrganicosEmCasaDBContext();
 
-        // GET: Vendas
         public ActionResult Index()
         {
             return View(db.Vendas.ToList());
         }
 
-        // GET: Vendas/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -35,7 +33,6 @@ namespace OrganicosEmCasa.Controllers
             return View(venda);
         }
 
-        // GET: Vendas/Create
         public ActionResult Create()
         {
             return View();
@@ -78,9 +75,6 @@ namespace OrganicosEmCasa.Controllers
             
         }
 
-        // POST: Vendas/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID")] Venda venda)
@@ -96,7 +90,6 @@ namespace OrganicosEmCasa.Controllers
             return View(venda);
         }
 
-        // GET: Vendas/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -111,9 +104,6 @@ namespace OrganicosEmCasa.Controllers
             return View(venda);
         }
 
-        // POST: Vendas/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID")] Venda venda)
@@ -127,7 +117,6 @@ namespace OrganicosEmCasa.Controllers
             return View(venda);
         }
 
-        // GET: Vendas/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -142,7 +131,6 @@ namespace OrganicosEmCasa.Controllers
             return View(venda);
         }
 
-        // POST: Vendas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

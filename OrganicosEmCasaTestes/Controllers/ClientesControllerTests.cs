@@ -50,7 +50,7 @@ namespace OrganicosEmCasaTestes
 
            var resultado = this.controller.Create(cliente) as RedirectToRouteResult;
 
-            Assert.AreEqual("Index", resultado.RouteValues["action"]);
+            Assert.AreEqual("../Vendas/FinalizarCompra", resultado.RouteValues["action"]);
 
             #region Remover dados
             this.contexto.Clientes.Remove(cliente);

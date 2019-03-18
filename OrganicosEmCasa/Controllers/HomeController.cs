@@ -9,7 +9,18 @@ namespace OrganicosEmCasa.Controllers
 {
     public class HomeController : Controller
     {
-        private OrganicosEmCasaDBContext db = new OrganicosEmCasaDBContext();
+        private IOrganicosEmCasaDBContext db;
+
+        public HomeController()
+        {
+            this.db = new OrganicosEmCasaDBContext();
+        }
+
+        public HomeController(IOrganicosEmCasaDBContext db)
+        {
+            this.db = db;
+        }
+
         public ActionResult Index()
         {
             return View(db.Categorias.ToList());

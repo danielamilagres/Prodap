@@ -13,7 +13,17 @@ namespace OrganicosEmCasa.Controllers
 {
     public class CarrinhoController : Controller
     {
-        private OrganicosEmCasaDBContext db = new OrganicosEmCasaDBContext();
+        private readonly IOrganicosEmCasaDBContext db;
+
+        public CarrinhoController()
+        {
+            this.db = new OrganicosEmCasaDBContext();
+        }
+
+        public CarrinhoController(IOrganicosEmCasaDBContext db)
+        {
+            this.db = db;
+        }
 
         public ActionResult AdicionarCarrinho(int id)
         {
@@ -46,6 +56,25 @@ namespace OrganicosEmCasa.Controllers
             }
             else
                 return RedirectToAction("Error");
+            return RedirectToAction("Carrinho");
+        }
+
+        public ActionResult Remover(int id)
+        {
+            if (Session["carrinho"] != null)
+            {
+                List<Carrinho> carrinho = (List<Carrinho>)Session["carrinho"];
+                int index = ExisteNoCarrinho(id);
+                if (index != -1)
+                {
+                    var item = carrinho.First().ListaDeItens[index];
+                    carrinho.First().ListaDeItens.Remove(item);
+                }
+                Session["carrinho"] = carrinho;
+
+                if (carrinho.First().ListaDeItens.Count() == 0)
+                    LimparCarrinho();
+            }
             return RedirectToAction("Carrinho");
         }
 

@@ -2,6 +2,12 @@
 
 @{
     ViewBag.Title = "Carrinho de Compras";
+    var carrinho = new OrganicosEmCasa.Models.Carrinho();
+
+    if (Model != null && Model.Any())
+    {
+        carrinho = Model.First();
+    }
 }
 <section id="features">
     <div class="container">
@@ -19,7 +25,7 @@
                 <div class="block">
                     <div class="media">
                         <div class="media-body">
-                            <center><h4 class="media-heading">@Html.ActionLink("ContinuarComprando", "Carrinho", "Carrinho")</h4></center>
+                            <center><h4 class="media-heading">@Html.ActionLink("Continuar Comprando", "/../Produtoes")</h4></center>
                         </div>
                     </div>
                 </div>
@@ -28,7 +34,14 @@
                 <div class="block">
                     <div class="media">
                         <div class="media-body">
-                            <center><h4 class="media-heading">@Html.ActionLink("Finalizar Compra", "Create", "Clientes")</h4></center>
+                            @if (carrinho.ListaDeItens!= null && carrinho.ListaDeItens.Count() != 0)
+                            {
+                                    <center><h4 class="media-heading">@Html.ActionLink("Finalizar Compra", "Create", "Clientes")</h4></center>
+                            }
+                            else
+                            { 
+                                    <center><h4 class="media-heading">@Html.ActionLink("Finalizar Compra", "Carrinho", "Carrinho")</h4></center>
+                            }
                         </div>	<!-- End of /.media-body -->
                     </div>	<!-- End of /.media -->
                 </div>	<!-- End of /.block -->
@@ -37,7 +50,7 @@
     </div>	<!-- End of /.container -->
 </section>
 <div class="block">
-<BR>
+    <BR>
     <table class="table">
         <thead>
             <tr>
@@ -45,38 +58,37 @@
                 <th scope="col">Produto</th>
                 <th scope="col">Quantidade</th>
                 <th scope="col">Valor</th>
+                <th scope="col">Total</th>
                 <th scope="col">...</th>
             </tr>
         </thead>
         <tbody>
             @if (Model != null && Model.Any())
             {
-                foreach (var i in Model)
+                foreach (var item in carrinho.ListaDeItens)
                 {
-                    foreach (var item in i.ListaDeItens)
-                    {
-                        <tr>
-                            <td scope="col"><img src="~/Content/images/@Html.DisplayFor(modelItem => item.Produto.URLImagem)" alt="" style="width: 100px;"></td>
-                            <td scope="col"> @Html.DisplayFor(modelItem => item.Produto.Nome)</td>
-                            <td scope="col"> @Html.DisplayFor(modelItem => item.Quantidade)</td>
-                            <td scope="col"> @Html.DisplayFor(modelItem => item.Produto.Preco)</td>
-                            <td scope="col"> @Html.DisplayFor(modelItem => item.ValorTotal)</td>
-                        </tr>
-                    }
-                    <tr>
-                        <td colspan="5">
-                            <h3 class="text-right">Valor Total da Compra: R$ @Html.DisplayFor(modelItem => i.ValorTotal)</h3>
-                        </td>
-                    </tr>
+            <tr>
+                <td scope="col"><img src="~/Content/images/@Html.DisplayFor(modelItem => item.Produto.URLImagem)" alt="" style="width: 100px;"></td>
+                <td scope="col"> @Html.DisplayFor(modelItem => item.Produto.Nome)</td>
+                <td scope="col"> @Html.DisplayFor(modelItem => item.Quantidade)</td>
+                <td scope="col"> @Html.DisplayFor(modelItem => item.Produto.Preco)</td>
+                <td scope="col"> @Html.DisplayFor(modelItem => item.ValorTotal)</td>
+                <td scope="col">@Html.ActionLink("Remover", "Remover", new { id = item.Produto.ID })</td>
+            </tr>
                 }
+                <tr>
+                    <td colspan="6">
+                        <h3 class="text-right">Valor Total da Compra: R$ @Html.DisplayFor(modelItem => carrinho.ValorTotal)</h3>
+                    </td>
+                </tr>
             }
             else
             {
                 <tr>
-                    <td colspan="5"><center><h3>Seu carrinho está vazio!</h3></center></td>
+                    <td colspan="6"><center><h3>Seu carrinho está vazio!</h3></center></td>
                 </tr>
             }
         </tbody>
     </table>
-
+</div>
 
