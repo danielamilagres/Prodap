@@ -1,51 +1,79 @@
 ﻿@model IEnumerable<OrganicosEmCasa.Models.Produto>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Orgânicos em Casa - Produtos";
 }
 
-<h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Nome)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Descricao)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.URLImagem)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Preco)
-        </th>
-        <th></th>
-    </tr>
+<!doctype html>
+<html lang="en">
+<body>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Descricao)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.URLImagem)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Preco)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
+    <section id="catagorie">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="block">
+                        <div class="block-heading">
+                            <h2>Categorias</h2>
+                        </div>
+                        @{
+                            Html.RenderAction("MenuCategoria");
+                        }
+                    </div>	<!-- End of /.block -->
+                </div>
+                <div class="col-md-8">
+                    <div class="block">
+                        <div class="block-heading">
+                            <h2>PRODUTOS</h2>
+                        </div>
+                        <div class="row">
+                            @if (Model != null && Model.Any())
+                            {
+                                foreach (var item in Model)
+                                {
+                                    <div class="col-md-3">
+                                        <div class="products">
+                                            <a href="#">
+                                                <img src="~/Content/images/@Html.DisplayFor(modelItem => item.URLImagem)" alt="">
+                                            </a>
+                                            <a href="single-product.html">
+                                                <h4>@Html.DisplayFor(modelItem => item.Nome)</h4>
+                                            </a>
+                                            <p class="price">R$ @Html.DisplayFor(modelItem => item.Preco)</p>
+                                            <a class="view-link shutter" href="#">
+                                                <i class="fa fa-plus-circle"></i>@Html.ActionLink("Comprar", "AdicionarCarrinho", "Carrinho", new { id = item.ID }, null)
+                                            </a>
 
-</table>
+                                        </div>	<!-- End of /.products -->
+                                    </div> <!-- End Of /.Col-md-3 -->
+                                }
+                            }
+                            else
+                            {
+                                <div class="col-md-12">
+                                    <center><h3>Nenhum produto foi encontrado para esta categoria</h3></center>
+                                </div>
+                            }
+                        </div> <!-- End of /.row -->
+                            </div>	<!-- End of /.block -->
+                </div>	<!-- End of /.col-md-8 -->
+            </div>	<!-- End of /.row -->
+        </div>	<!-- End of /.container -->
+    </section>	<!-- End of Section -->
+    <!-- PRODUCTS Start
+    ================================================== -->
+    <section id="call-to-area">
+        <div class="container">
+            <div class="row">
+
+            </div> <!-- End Of /.Row -->
+        </div> <!-- End Of /.Container -->
+    </section>	<!-- End of Section -->
+    <!-- FOOTER Start
+    ================================================== -->
+
+
+    <a id="back-top" href="#"></a>
+</body>
+</html>

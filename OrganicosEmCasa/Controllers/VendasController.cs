@@ -41,6 +41,66 @@ namespace OrganicosEmCasa.Controllers
             return View();
         }
 
+        public ActionResult ConfirmarCompra(int VendaID)
+        {
+            //new List<Venda>(db.Vendas.Find(VendaID))
+            return View();
+        }
+
+
+        public ActionResult FinalizarCompra(int ClienteID)
+        {
+            List<Carrinho> carrinho = (List<Carrinho>)Session["carrinho"];
+            if (carrinho != null)
+            {
+                /*
+                Venda venda = new Venda();
+
+                //Preencher dados de Cliente
+                Cliente clienteBanco = db.Clientes.Find(ClienteID);
+                if (clienteBanco != null)
+                {
+                    string sqlVenda = "Insert into Vendas (Cliente_ID, IdSessao) values ( " + ClienteID + ", 0 )";
+                    int idVenda = db.Database.ExecuteSqlCommand(sqlVenda);
+
+                    foreach (var item in carrinho[0].ListaDeItens)
+                    {
+                        string sqlProdutoVenda = "insert into ProdutoVendas (IdVenda, Quantidade, Preco, Produto_ID, Venda_ID) values ("
+                            + idVenda + ", " + item.Quantidade + ", " + item.Produto.Preco.ToString("#.00").Replace(",",".") + "," + item.Produto.ID + "," + idVenda + ")";
+                        db.Database.ExecuteSqlCommand(sqlProdutoVenda);
+                    }
+                    db.SaveChanges();
+
+                }
+
+                Cliente clienteVenda = new Cliente { ID = clienteBanco.ID, CEP = clienteBanco.CEP, Cidade = clienteBanco.Cidade, CPF = clienteBanco.CPF, Endereco = clienteBanco.Endereco, Nome = clienteBanco.Nome, Telefone = clienteBanco.Telefone, UF = clienteBanco.UF };
+
+
+                venda.Cliente = clienteVenda;
+                */
+
+                var venda = db.Vendas.Include(c => c.Cliente).First();
+                var cliente = db.Clientes.Find(ClienteID);
+                venda.Cliente = cliente;
+                db.Vendas.Add(venda);
+                db.SaveChanges();
+                foreach (var item in carrinho[0].ListaDeItens)
+                {
+                    string sqlProdutoVenda = "insert into ProdutoVendas (IdVenda, Quantidade, Preco, Produto_ID, Venda_ID) values ("
+                            + venda.ID + ", " + item.Quantidade + ", " + item.Produto.Preco.ToString("#.00").Replace(",", ".") + "," + item.Produto.ID + "," + venda.ID + ")";
+                    db.Database.ExecuteSqlCommand(sqlProdutoVenda);
+                }
+                               
+                db.SaveChanges();
+                return RedirectToAction("ConfirmarCompra", new { VendaID = venda.ID });
+            }
+            else
+            {
+                return RedirectToAction("~");
+            }
+            
+        }
+
         // POST: Vendas/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -52,6 +112,7 @@ namespace OrganicosEmCasa.Controllers
             {
                 db.Vendas.Add(venda);
                 db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
 
@@ -114,6 +175,7 @@ namespace OrganicosEmCasa.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
 
         protected override void Dispose(bool disposing)
         {

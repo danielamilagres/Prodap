@@ -15,9 +15,12 @@ namespace OrganicosEmCasa.Controllers
         private OrganicosEmCasaDBContext db = new OrganicosEmCasaDBContext();
 
         // GET: Produtoes
-        public ActionResult Index()
+        public ActionResult Index(int? Categoria)
         {
-            return View(db.Produtos.ToList());
+            if (Categoria != null)
+                return View(db.Produtos.SqlQuery("Select * from Produtoes where Categoria_Id =" + Categoria).ToList());
+            else
+                return View(db.Produtos.ToList());
         }
 
         // GET: Produtoes/Details/5
@@ -113,6 +116,11 @@ namespace OrganicosEmCasa.Controllers
             db.Produtos.Remove(produto);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        public ActionResult MenuCategoria()
+        {
+            return PartialView(db.Categorias.ToList());
         }
 
         protected override void Dispose(bool disposing)
