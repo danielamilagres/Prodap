@@ -93,5 +93,31 @@ namespace OrganicosEmCasaTestes
             var resultado = this.controller.Details(999);
             Assert.IsInstanceOfType(resultado, typeof(HttpNotFoundResult));
         }
+
+        [TestMethod]
+        public void TesteDeleteConfirmed_Sucesso()
+        {
+            #region Criar Registro
+            var cliente = new Cliente
+            {
+                ID = 50,
+                Nome = "Maria da Silva",
+                Endereco = "Avenida do Contorno 3000",
+                UF = OrganicosEmCasa.Utils.Estados.MG,
+                Cidade = "Belo Horizonte",
+                CPF = "486.475.170-67",
+                CEP = "30.000-000",
+                Telefone = "(31)98877-9878"
+            };
+
+            contexto.Clientes.Add(cliente);
+            #endregion
+
+            this.controller.DeleteConfirmed(50);
+            var resultado = this.controller.DeleteConfirmed(50) as RedirectToRouteResult;
+
+            Assert.AreEqual("Index", resultado.RouteValues["action"]);
+
+        }
     }
 }
