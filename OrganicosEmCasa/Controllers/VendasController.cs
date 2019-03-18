@@ -43,8 +43,11 @@ namespace OrganicosEmCasa.Controllers
 
         public ActionResult ConfirmarCompra(int VendaID)
         {
-            //new List<Venda>(db.Vendas.Find(VendaID))
-            return View();
+            List<Venda> listaVendas = new List<Venda>();
+            var venda = db.Vendas.Find(VendaID);
+            venda.ListaProdutos = db.ProdutoVendas.SqlQuery("Select * from ProdutoVendas where Venda_ID =" + VendaID).ToList();
+            listaVendas.Add(venda);
+            return View(listaVendas);
         }
 
 
@@ -53,32 +56,6 @@ namespace OrganicosEmCasa.Controllers
             List<Carrinho> carrinho = (List<Carrinho>)Session["carrinho"];
             if (carrinho != null)
             {
-                /*
-                Venda venda = new Venda();
-
-                //Preencher dados de Cliente
-                Cliente clienteBanco = db.Clientes.Find(ClienteID);
-                if (clienteBanco != null)
-                {
-                    string sqlVenda = "Insert into Vendas (Cliente_ID, IdSessao) values ( " + ClienteID + ", 0 )";
-                    int idVenda = db.Database.ExecuteSqlCommand(sqlVenda);
-
-                    foreach (var item in carrinho[0].ListaDeItens)
-                    {
-                        string sqlProdutoVenda = "insert into ProdutoVendas (IdVenda, Quantidade, Preco, Produto_ID, Venda_ID) values ("
-                            + idVenda + ", " + item.Quantidade + ", " + item.Produto.Preco.ToString("#.00").Replace(",",".") + "," + item.Produto.ID + "," + idVenda + ")";
-                        db.Database.ExecuteSqlCommand(sqlProdutoVenda);
-                    }
-                    db.SaveChanges();
-
-                }
-
-                Cliente clienteVenda = new Cliente { ID = clienteBanco.ID, CEP = clienteBanco.CEP, Cidade = clienteBanco.Cidade, CPF = clienteBanco.CPF, Endereco = clienteBanco.Endereco, Nome = clienteBanco.Nome, Telefone = clienteBanco.Telefone, UF = clienteBanco.UF };
-
-
-                venda.Cliente = clienteVenda;
-                */
-
                 var venda = db.Vendas.Include(c => c.Cliente).First();
                 var cliente = db.Clientes.Find(ClienteID);
                 venda.Cliente = cliente;
