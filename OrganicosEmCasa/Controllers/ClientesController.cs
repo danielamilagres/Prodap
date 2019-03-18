@@ -62,7 +62,7 @@ namespace OrganicosEmCasa.Controllers
             {
                 db.Clientes.Add(cliente);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("../Vendas/FinalizarCompra", new { ClienteID = cliente.ID});
             }
 
             return View(cliente);

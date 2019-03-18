@@ -1,0 +1,16 @@
+﻿@model IEnumerable<OrganicosEmCasa.Models.Categoria>
+
+<div class="row">
+    <div class="col-sm-4 col-md-12 sidebar">
+        <div class="list-group">
+            @foreach (var item in Model)
+            {
+
+                <a href="/Produtoes?Categoria=@Html.DisplayFor(modelItem => item.ID)" class="list-group-item">
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </a>
+
+            }
+        </div>
+    </div>
+</div>	<!-- End of /.row -->

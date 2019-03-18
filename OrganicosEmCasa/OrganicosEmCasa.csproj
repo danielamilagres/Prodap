@@ -132,6 +132,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CarrinhoController.cs" />
     <Compile Include="Controllers\CategoriasController.cs" />
     <Compile Include="Controllers\ClientesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -142,11 +143,14 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Carrinho.cs" />
     <Compile Include="Models\Categoria.cs" />
     <Compile Include="Models\Cliente.cs" />
+    <Compile Include="Models\ItemCarrinho.cs" />
     <Compile Include="Models\IOrganicosEmCasaDBContext.cs" />
     <Compile Include="Models\OrganicosEmCasaDBContext.cs" />
     <Compile Include="Models\Produto.cs" />
+    <Compile Include="Models\ProdutoPorCategoria.cs" />
     <Compile Include="Models\ProdutoVenda.cs" />
     <Compile Include="Models\Venda.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -162,6 +166,7 @@
     <Content Include="Content\images\American-Express.png" />
     <Content Include="Content\images\author.jpg" />
     <Content Include="Content\images\blog-1.jpg" />
+    <Content Include="Content\images\carne.jpg" />
     <Content Include="Content\images\category-image-1.jpg" />
     <Content Include="Content\images\category-image-2.jpg" />
     <Content Include="Content\images\category-image-3.jpg" />
@@ -179,8 +184,11 @@
     <Content Include="Content\images\kewledits.weebly %28120%29.png" />
     <Content Include="Content\images\large_left.png" />
     <Content Include="Content\images\large_right.png" />
+    <Content Include="Content\images\legumes.jpg" />
+    <Content Include="Content\images\leite.png" />
     <Content Include="Content\images\logo.png" />
     <Content Include="Content\images\Maestro.png" />
+    <Content Include="Content\images\padaria.jpg" />
     <Content Include="Content\images\PayPal.png" />
     <Content Include="Content\images\post-img-2.png" />
     <Content Include="Content\images\post-img-3.png" />
@@ -276,6 +284,9 @@
     <Content Include="Views\Vendas\Details.cshtml" />
     <Content Include="Views\Vendas\Edit.cshtml" />
     <Content Include="Views\Vendas\Index.cshtml" />
+    <Content Include="Views\Produtoes\MenuCategoria.cshtml" />
+    <Content Include="Views\Carrinho\Carrinho.cshtml" />
+    <Content Include="Views\Vendas\ConfirmarCompra.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

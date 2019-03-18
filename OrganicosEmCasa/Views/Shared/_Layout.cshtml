@@ -28,27 +28,12 @@
                         <li>
                             <a data-toggle="modal" data-target="#myModal" href="#">
                                 <i class="fa fa-user"></i>
-                                Checkout
+                                @Html.ActionLink("Finalizar Compra", "Create", "Clientes")
                             </a>
                         </li>
                         <li>
                             <div class="cart dropdown">
-                                <a data-toggle="dropdown" href="#"><i class="fa fa-shopping-cart"></i>Cart(1)</a>
-                                <div class="dropdown-menu dropup">
-                                    <span class="caret"></span>
-                                    <ul class="media-list">
-                                        <li class="media">
-                                            <img class="pull-left" src="~/Content/images/product-item.jpg" alt="">
-                                            <div class="media-body">
-                                                <h6>
-                                                    Italian Sauce
-                                                    <span>$250</span>
-                                                </h6>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                    <button class="btn btn-primary btn-sm">Checkout</button>
-                                </div>
+                                <a  href="~/Carrinho/Carrinho"><i class="fa fa-shopping-cart"></i>Carrinho</a>
                             </div>
                         </li>
                     </ul>
@@ -115,7 +100,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-4" >
-                    <a href="#">
+                    <a href="/">
                         <img src="~/Content/images/logo.png" alt="logo">
                     </a>
                 </div>	<!-- End of /.col-md-4 -->
@@ -132,7 +117,7 @@
         <footer>
             <div class="container">
                 <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-md-7">
                         <div class="block clearfix">
                             <a href="#">
                                 <img src="~/Content/images/footer-logo.png" alt="">
@@ -170,9 +155,9 @@
                             </ul>	<!-- End Of /.social-icon -->
                         </div>	<!-- End Of /.block -->
                     </div> <!-- End Of /.Col-md-4 -->
-                    <div class="col-md-4">
+                    <div class="col-md-5">
                         <div class="block">
-                            <h4>GET IN TOUCH</h4>
+                            <h4>CONTATO</h4>
                             <p><i class="fa  fa-map-marker"></i> <span>Orgânicos Em Casa Ltda,</span>Rua das Flores, 32 - Belo Horizonte</p>
                             <p> <i class="fa  fa-phone"></i> <span>Telefone:</span> (31) 3333-3333 </p>
                             <p> <i class="fa  fa-mobile"></i> <span>Celula:</span> (31) 99999-9999</p>
