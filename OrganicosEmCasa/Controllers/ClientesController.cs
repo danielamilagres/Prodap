@@ -12,7 +12,17 @@ namespace OrganicosEmCasa.Controllers
 {
     public class ClientesController : Controller
     {
-        private OrganicosEmCasaDBContext db = new OrganicosEmCasaDBContext();
+        private readonly IOrganicosEmCasaDBContext db;
+
+        public ClientesController()
+        {
+            this.db = new OrganicosEmCasaDBContext();
+        }
+
+        public ClientesController(IOrganicosEmCasaDBContext db)
+        {
+            this.db = db;
+        }
 
         // GET: Clientes
         public ActionResult Index()
