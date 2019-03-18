@@ -11,7 +11,6 @@ namespace OrganicosEmCasaTestes
     public class ClientesControllerTests
     {
         public TestContext TestContext { get; set; }
-        private readonly ClientesController Controller;
 
         [ClassInitialize]
         public static void SetUp(TestContext context)
@@ -20,15 +19,16 @@ namespace OrganicosEmCasaTestes
         }
 
         [TestMethod]
-        public void TestIndexView()
+        public void TesteIndexView_Sucesso()
         {
             var controller = new ClientesController();
             var resultado = controller.Index() as ViewResult;
             Assert.IsNotNull(resultado);
+            Assert.AreEqual("Index", resultado.ViewName);
         }
 
         [TestMethod]
-        public void TestCreateAction()
+        public void TesteCreateAction_Sucesso()
         {
             var cliente = new Cliente
             {
@@ -42,9 +42,48 @@ namespace OrganicosEmCasaTestes
             };
 
             var controller = new ClientesController();
-            var resultado = controller.Create(cliente);
+            var resultado = controller.Create(cliente) as RedirectToRouteResult;
 
-            Assert.IsNotNull(resultado);
+            Assert.AreEqual("Index", resultado.RouteValues["action"]);
+        }
+
+        [TestMethod]
+        public void TesteDetailsAction_Sucesso()
+        {
+            var controller = new ClientesController();
+            var nomeCliente = "João Paulo Silva";
+
+            #region Criar Registro
+            var cliente = new Cliente
+            {
+                ID = 50,
+                Nome = nomeCliente,
+                Endereco = "Avenida do Contorno 3000",
+                UF = OrganicosEmCasa.Utils.Estados.MG,
+                Cidade = "Belo Horizonte",
+                CPF = "486.475.170-67",
+                CEP = "30.000-000",
+                Telefone = "(31)98877-9878"
+            };
+
+            controller.Create(cliente);
+            #endregion
+
+            var resultado = controller.Details(1) as ViewResult;
+            var clienteRetornado = (Cliente)resultado.ViewData.Model;
+            Assert.AreEqual(clienteRetornado.Nome, nomeCliente);
+
+            #region Remoção registro
+            controller.DeleteConfirmed(clienteRetornado.ID);
+            #endregion
+        }
+
+        [TestMethod]
+        public void TesteDetailsAction_NaoEncontrado()
+        {
+            var controller = new ClientesController();
+            var resultado = controller.Details(999);
+            Assert.IsInstanceOfType(resultado, typeof(HttpNotFoundResult));
         }
     }
 }
