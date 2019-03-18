@@ -144,6 +144,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Categoria.cs" />
     <Compile Include="Models\Cliente.cs" />
+    <Compile Include="Models\IOrganicosEmCasaDBContext.cs" />
     <Compile Include="Models\OrganicosEmCasaDBContext.cs" />
     <Compile Include="Models\Produto.cs" />
     <Compile Include="Models\ProdutoVenda.cs" />

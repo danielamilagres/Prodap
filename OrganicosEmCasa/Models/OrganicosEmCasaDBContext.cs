@@ -8,7 +8,7 @@ using OrganicosEmCasa.Models;
 namespace OrganicosEmCasa.Models
 {
 
-    public class OrganicosEmCasaDBContext : DbContext
+    public class OrganicosEmCasaDBContext : DbContext, IOrganicosEmCasaDBContext
     {
         public DbSet<Categoria> Categorias { get; set; }
         public DbSet<Cliente> Clientes { get; set; }
